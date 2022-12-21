@@ -1,0 +1,15 @@
+#product{
+  table{
+    td ,th{
+      vertical-align: middle;
+    }
+  }
+}
+
+#product-gallery{
+  .img{
+    height: 250px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+  }
+}
