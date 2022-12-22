@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\AuditLogController;
+use App\Http\Controllers\IpAddressController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +28,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('check-token', 'checkToken');
         Route::post('logout', 'logout');
     });
+
+    Route::controller(IpAddressController::class)->group(function () {
+        Route::get('ip-address', 'index');
+        Route::post('ip-address', 'store');
+        Route::put('ip-address/{id}', 'update');
+    });
+
+    Route::get('audit-logs', [AuditLogController::class, 'index']);
 });

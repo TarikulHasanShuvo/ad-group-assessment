@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\IpAddressResource;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +15,7 @@ class ProductService
     {
         $products = Product::query()->with('category')->latest()->get();
 
-        return ProductResource::collection($products);
+        return IpAddressResource::collection($products);
     }
 
     /**
@@ -65,7 +65,7 @@ class ProductService
     {
         self::makeDirectory();
         $imageName = time() . '.' . $request->image->extension();
-        $request->image->storeAs('public/home', $imageName);
+        $request->image->storeAs('public/dashboard', $imageName);
         if ($old_avatar) self::deleteImage($old_avatar);
         return $imageName ?? null;
     }
@@ -76,8 +76,8 @@ class ProductService
      */
     public function deleteImage($old_avatar)
     {
-        if ($old_avatar && Storage::disk('public')->exists('home/' . $old_avatar)) {
-            Storage::disk('public')->delete('home/' . $old_avatar);
+        if ($old_avatar && Storage::disk('public')->exists('dashboard/' . $old_avatar)) {
+            Storage::disk('public')->delete('dashboard/' . $old_avatar);
         }
     }
 
@@ -86,8 +86,8 @@ class ProductService
      */
     public function makeDirectory()
     {
-        if (!Storage::disk('local')->exists('home')) {
-            Storage::disk('local')->makeDirectory('home');
+        if (!Storage::disk('local')->exists('dashboard')) {
+            Storage::disk('local')->makeDirectory('dashboard');
         }
     }
 

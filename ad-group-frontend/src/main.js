@@ -31,7 +31,7 @@ router.beforeEach((to, from, next) => {
     }
     if (to.name == 'Login') {
         if (JwtService.getToken()) {
-            next({name: 'Products'});
+            next({name: 'Dashboard'});
         }
     }
     nextTick(() => {

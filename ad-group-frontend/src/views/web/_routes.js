@@ -1,11 +1,19 @@
 
 const webRoutes = [
     {
-        path: '/Home',
-        name: 'Home',
-        component: () => import('./pages/home/Home.vue'),
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: () => import('./pages/dashboard/Dashboard.vue'),
         meta: {
-            title: 'Home'
+            title: 'Dashboard'
+        }
+    },
+    {
+        path: '/audit-logs',
+        name: 'AuditLogs',
+        component: () => import('./pages/AuditLog.vue'),
+        meta: {
+            title: 'Audit Logs'
         }
     },
 ];

@@ -11,13 +11,9 @@
             <input v-model="loginInfo.email" type="email" class="form-control" id="exampleInputEmail1"
                    aria-describedby="emailHelp" required>
           </div>
-          <div class="mb-3">
+          <div class="mb-5">
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input v-model="loginInfo.password" type="password" class="form-control" id="exampleInputPassword1" required>
-          </div>
-          <div class="mb-3 form-check">
-            <input v-model="loginInfo.remember_me" type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Remember me</label>
           </div>
           <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
@@ -42,7 +38,6 @@ export default {
     loginInfo: {
       email: "",
       password: "",
-      remember_me: false
     },
   }),
   methods: {
@@ -52,7 +47,7 @@ export default {
         ApiService.init();
         this.$store.commit("STORE_USER", data.user);
         this.toastMessage('Login Successfully');
-        this.$router.push({name: "Products"});
+        this.$router.push({name: "Dashboard"});
       }).catch((errors) => {
         console.log('error', errors.response.data.message);
       });

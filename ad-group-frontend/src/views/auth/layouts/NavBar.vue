@@ -1,22 +1,22 @@
 <template>
   <nav id="navbar" class="navbar navbar-expand-lg mt-3 px-3">
     <div class="container">
-      <router-link to="/" class="navbar-brand" href="#">AD Group</router-link>
+      <router-link to="/" class="navbar-brand" href="#">IP Management System</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-<!--          <li v-if="Object.keys($store.state.user).length" class="nav-item">-->
-<!--            <router-link to="/products" class="nav-link active" aria-current="page" href="#">Products</router-link>-->
-<!--          </li>-->
-<!--          <li v-else class="nav-item">-->
-<!--            <router-link to="/" class="nav-link active" aria-current="page" href="#">Products</router-link>-->
-<!--          </li>-->
+        <ul v-if="Object.keys($store.state.user).length" class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link to="/dashboard" class="nav-link" :class="{'active': $route.name == 'Dashboard'}" aria-current="page" href="#">IP Address</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/audit-logs" class="nav-link" :class="{'active': $route.name == 'AuditLogs'}" aria-current="page" href="#">Audit Logs</router-link>
+          </li>
         </ul>
           <h6 v-if="Object.keys($store.state.user).length" class="me-3">Hi, {{ $store.state.user?.name  }}</h6>
           <button @click="logout" v-if="Object.keys($store.state.user).length" class="btn btn-secondary">Logout</button>
-         <div v-else class="">
+         <div v-else class="ms-auto">
            <router-link to="login" class="btn btn-outline-success">Login</router-link>
          </div>
       </div>
