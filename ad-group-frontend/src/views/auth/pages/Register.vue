@@ -46,9 +46,10 @@
 
 import ApiService from "@/services/api.service";
 import JwtService from "@/services/jwt.service";
-
+import ToastMessage from "@/mixins/ToastMessage";
 export default {
   name: "Register",
+  mixins: [ToastMessage],
   data() {
     return {
       form: {}
@@ -63,27 +64,9 @@ export default {
         this.toastMessage('Registration Successfully');
         this.$router.push({name: "Home"});
       }).catch((error) => {
-        console.log('error', error.response.data.message);
+        this.toastMessage( error.response.data.message,'error');
       });
     },
-    toastMessage(message) {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter',this.$swal.stopTimer)
-          toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-        }
-      })
-
-      Toast.fire({
-        icon: 'success',
-        title: message
-      })
-    }
   }
 
 }

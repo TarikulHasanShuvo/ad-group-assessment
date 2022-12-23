@@ -10,67 +10,40 @@ class IpAddressObserver
     /**
      * Handle the IpAddress "created" event.
      *
-     * @param  \App\Models\IpAddress  $ipAddress
+     * @param \App\Models\IpAddress $ipAddress
      * @return void
      */
     public function created(IpAddress $ipAddress)
     {
-        AuditLog::create([
-            'user_id' => auth()->id(),
-            'ip_address_id' => $ipAddress->id,
-            'action' => 'create',
-            'old_label' => null,
-            'new_label' => $ipAddress->label,
-        ]);
+        self::createAuditLog($ipAddress, 'created');
     }
 
     /**
      * Handle the IpAddress "updated" event.
      *
-     * @param  \App\Models\IpAddress  $ipAddress
+     * @param \App\Models\IpAddress $ipAddress
      * @return void
      */
     public function updating(IpAddress $ipAddress)
     {
-        AuditLog::create([
-            'user_id' => auth()->id(),
-            'ip_address_id' => $ipAddress->id,
-            'action' => 'update',
-            'old_label' => $ipAddress->getOriginal('label'),
-            'new_label' => $ipAddress->label,
-        ]);
+        self::createAuditLog($ipAddress, 'update');
     }
 
     /**
      * Handle the IpAddress "deleted" event.
      *
-     * @param  \App\Models\IpAddress  $ipAddress
+     * @param \App\Models\IpAddress $ipAddress
      * @return void
      */
-    public function deleted(IpAddress $ipAddress)
-    {
-        //
-    }
 
-    /**
-     * Handle the IpAddress "restored" event.
-     *
-     * @param  \App\Models\IpAddress  $ipAddress
-     * @return void
-     */
-    public function restored(IpAddress $ipAddress)
+    private function createAuditLog($ipAddress, $action): void
     {
-        //
-    }
-
-    /**
-     * Handle the IpAddress "force deleted" event.
-     *
-     * @param  \App\Models\IpAddress  $ipAddress
-     * @return void
-     */
-    public function forceDeleted(IpAddress $ipAddress)
-    {
-        //
+        AuditLog::create([
+            'user_id' => auth()->id(),
+            'ip_address_id' => $ipAddress->id,
+            'action' => $action,
+            'old_label' => $ipAddress->getOriginal('label'),
+            'new_label' => $ipAddress->label,
+        ]);
     }
 }

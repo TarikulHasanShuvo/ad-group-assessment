@@ -38,9 +38,11 @@
 
 <script>
 import ApiService from "@/services/api.service";
+import ToastMessage from "@/mixins/ToastMessage";
 
 export default {
   name: "CreateOrEditIpAddress",
+  mixins: [ToastMessage],
   data() {
     return {
       ipInfo: {
@@ -52,19 +54,23 @@ export default {
   },
   methods: {
     storeIPAddress() {
-      ApiService.post('ip-address', this.ipInfo).then(() => {
+      ApiService.post('ip-address', this.ipInfo).then(({data}) => {
         this.$parent.getIpAddress();
+        this.toastMessage(data.message);
         this.resetForm()
       }).catch((errors) => {
-        console.log('error', errors.response.data.message);
+        this.toastMessage(errors.response.data.message,'error',);
+        console.log('error',errors.response.data);
       });
     },
     updateIpAddress() {
-      ApiService.update(`ip-address/${this.ipInfo.id}`, this.ipInfo).then(() => {
+      ApiService.update(`ip-address/${this.ipInfo.id}`, this.ipInfo).then(({data}) => {
         this.$parent.getIpAddress();
+        this.toastMessage(data.message);
         this.resetForm()
       }).catch((errors) => {
-        console.log('error', errors.response.data.message);
+        this.toastMessage(errors.response.data.message,'error');
+        console.log('error',errors.response.data);
       });
     },
     resetForm() {

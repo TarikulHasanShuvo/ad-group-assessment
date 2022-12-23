@@ -13,7 +13,8 @@
           </div>
           <div class="mb-5">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input v-model="loginInfo.password" type="password" class="form-control" id="exampleInputPassword1" required>
+            <input v-model="loginInfo.password" type="password" class="form-control" id="exampleInputPassword1"
+                   required>
           </div>
           <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
@@ -31,9 +32,11 @@
 
 import ApiService from "@/services/api.service";
 import JwtService from "@/services/jwt.service";
+import ToastMessage from "@/mixins/ToastMessage";
 
 export default {
   name: "Login",
+  mixins: [ToastMessage],
   data: () => ({
     loginInfo: {
       email: "",
@@ -41,35 +44,23 @@ export default {
     },
   }),
   methods: {
-     login() {
+    login() {
       ApiService.post('/login', this.loginInfo).then(({data}) => {
-        JwtService.saveToken(data.access_token);
-        ApiService.init();
-        this.$store.commit("STORE_USER", data.user);
-        this.toastMessage('Login Successfully');
-        this.$router.push({name: "Dashboard"});
+        console.log('data', data);
+        if (data.status === 200) {
+          JwtService.saveToken(data.access_token);
+          ApiService.init();
+          this.$store.commit("STORE_USER", data.user);
+          this.toastMessage('Login Successfully');
+          this.$router.push({name: "Dashboard"});
+        }
+        else {
+          this.toastMessage(data.message, 'error');
+        }
       }).catch((errors) => {
-        console.log('error', errors.response.data.message);
+        this.toastMessage(errors.response.data.message, 'error');
       });
     },
-    toastMessage(message) {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter',this.$swal.stopTimer)
-          toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-        }
-      })
-
-      Toast.fire({
-        icon: 'success',
-        title: message
-      })
-    }
   }
 };
 </script>

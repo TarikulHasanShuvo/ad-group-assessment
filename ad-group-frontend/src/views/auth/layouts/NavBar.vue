@@ -27,9 +27,10 @@
 <script>
 import ApiService from "@/services/api.service";
 import JwtService from "@/services/jwt.service";
-
+import ToastMessage from "@/mixins/ToastMessage";
 export default {
   name: "NavBar",
+  mixins: [ToastMessage],
 
   methods : {
     logout() {
@@ -39,31 +40,16 @@ export default {
           this.toastMessage('Logout Successfully');
           this.$router.push('/');
         }).catch(error => {
-          console.log('error', error);
+          this.toastMessage(error.response.data.message,'error');
         })
       },
-    toastMessage(message) {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter',this.$swal.stopTimer)
-          toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-        }
-      })
-
-      Toast.fire({
-        icon: 'success',
-        title: message
-      })
-    }
     }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.active {
+  color: #842b43 !important;
+  font-weight: bold;
+}
 </style>

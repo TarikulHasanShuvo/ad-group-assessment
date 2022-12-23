@@ -24,8 +24,7 @@ class AuthController extends Controller
         if (!Auth::attempt($credentials)) {
 
             return response()->json([
-                'message' => 'Unauthorized',
-                'details' => "Email and Password not match.",
+                'message' => 'Unauthorized failed! Email and Password not match.',
                 'status' => 401
             ]);
         }

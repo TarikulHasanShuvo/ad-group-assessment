@@ -30,6 +30,7 @@
         </tr>
         </tbody>
       </table>
+      <h3 v-if="!ipAddresses.length" class="mt-4 text-muted text-center">No IP Address found...</h3>
     </div>
     <CreateOrEditIpAddress ref="createOrEditIpAddress"/>
   </div>

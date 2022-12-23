@@ -28,6 +28,7 @@
         </tr>
         </tbody>
       </table>
+      <h3 v-if="!auditLogs.length" class="mt-4 text-muted text-center">No Audit Log found...</h3>
     </div>
   </div>
 </template>

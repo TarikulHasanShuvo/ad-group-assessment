@@ -14,7 +14,7 @@ class AuditLogController extends Controller
      */
     public function index(): JsonResponse
     {
-        $auditLogs = AuditLog::query()->latest()->get();
+        $auditLogs = AuditLog::query()->where('user_id',auth()->id())->latest()->get();
         return response()->json(IpAddressResource::collection($auditLogs), 200);
     }
 }
