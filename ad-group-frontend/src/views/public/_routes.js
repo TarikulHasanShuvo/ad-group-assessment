@@ -10,7 +10,7 @@ export default [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('./pages/Login'),
+        component: () => import('./auth/Login'),
         meta: {
             title: 'Login'
         }
@@ -18,7 +18,7 @@ export default [
     {
         path: '/register',
         name: 'Register',
-        component: () => import('./pages/Register'),
+        component: () => import('./auth/Register'),
         meta: {
             title: 'Register'
         }

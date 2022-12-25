@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NotFound from '../components/PageNotFound';
 
-import PublicRoutes  from "@/views/auth/_routes";
-import PublicLayout  from "@/views/auth/Layout";
+import PublicRoutes  from "@/views/public/_routes";
+import PublicLayout  from "@/views/public/layouts/Layout";
 
 //Auth Section
-import PrivateRoutes  from "@/views/web/_routes";
-import AuthLayout  from "@/views/web/Layout";
+import PrivateRoutes  from "@/views/protected/_routes";
+import AuthLayout  from "@/views/protected/Layout";
 
 
 const routes = [
@@ -17,6 +17,8 @@ const routes = [
     component: PublicLayout,
     children : PublicRoutes
   },
+
+
   //========== Private Routes routing==========
   {
     path     : '/',

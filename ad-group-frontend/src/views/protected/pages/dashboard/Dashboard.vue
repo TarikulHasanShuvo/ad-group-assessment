@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import CreateOrEditIpAddress from "@/views/web/pages/dashboard/components/CreateOrEditIpAddress";
+import CreateOrEditIpAddress from "@/views/protected/pages/dashboard/components/CreateOrEditIpAddress";
 import ApiService from "@/services/api.service";
 
 export default {

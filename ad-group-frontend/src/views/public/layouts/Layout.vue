@@ -7,7 +7,7 @@
 
 <script>
 
-import NavBar from "@/views/auth/layouts/NavBar";
+import NavBar from "@/views/public/layouts/NavBar";
 
 export default {
   name: "AuthLayout",

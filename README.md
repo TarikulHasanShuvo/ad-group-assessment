@@ -24,10 +24,9 @@
     DB_USERNAME=your_user_name
     DB_PASSWORD=your_password
 
-### Generate a new application key & storage link create
+### Generate a new application key 
 
     php artisan key:generate
-    php artisan storage:link
 
 
 ### Create table & dummy data from seeder
@@ -46,10 +45,14 @@
     Email: admin@gmail.com 
     Password: 1234678
 
+### App URL
+
+    http://localhost:8000
 
 
 
-## Frontend Installation
+
+## Frontend Vue App Installation
 
 ### Clone the repository. If Already clone Main Repo then ignore this command.
 
@@ -59,6 +62,10 @@
 
     cd ad-group-frontend
 
+### Node version
+
+    v16.*.*
+
 ### Install all the dependencies using npm
 
     npm install
@@ -66,3 +73,10 @@
 ### Start the local development server
 
     npm run serve
+
+### App URL
+
+    http://localhost:8080
+
+
+##### Happy Coding!

@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AuditLogController;
 use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\AuditLogController;
-use App\Http\Controllers\IpAddressController;
+use App\Http\Controllers\Api\IpAddressController;
 use Illuminate\Support\Facades\Route;
 
 /*

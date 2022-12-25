@@ -1,5 +1,4 @@
-
-## Installation
+## Backend Installation
 
 ### Clone the repository
 
@@ -23,15 +22,15 @@
     DB_USERNAME=your_user_name
     DB_PASSWORD=your_password
 
-### Generate a new application key & storage link create 
+### Generate a new application key
 
     php artisan key:generate
-    php artisan storage:link
-    
 
-### Create table & dummy data from seeder 
+
+### Create table & dummy data from seeder
 
     php artisan migrate --seed
+
 
 ### Start the local development server
 
@@ -42,5 +41,8 @@
     User Panel 
     ======================
     Email: admin@gmail.com 
-    Password - 1234678
- 
+    Password: 1234678
+
+### App URL
+
+    http://localhost:8000

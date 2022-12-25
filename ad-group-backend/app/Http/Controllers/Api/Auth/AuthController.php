@@ -9,7 +9,6 @@ use App\Services\AccessTokenService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -17,30 +16,21 @@ class AuthController extends Controller
      * @param UserLoginRequest $request
      * @return JsonResponse
      */
-    public function login(UserLoginRequest $request)
+    public function login(UserLoginRequest $request): JsonResponse
     {
-        $credentials = request(['email', 'password']);
-
-        if (!Auth::attempt($credentials)) {
-
-            return response()->json([
-                'message' => 'Unauthorized failed! Email and Password not match.',
-                'status' => 401
-            ]);
-        }
-        $user = $request->user();
-        return AccessTokenService::getAccessToken($user);
+        if (!Auth::attempt($request->only(['email', 'password']))) {
+            return response()->json(['message' => 'Unauthorized failed! Email and Password not match.', 'status' => 401]);
+        };
+        return AccessTokenService::getAccessToken($request->user());
     }
 
     /**
      * @param UserLoginRequest $request
      * @return JsonResponse
      */
-    public function registration(UserLoginRequest $request)
+    public function registration(UserLoginRequest $request): JsonResponse
     {
-        $payload = $request->all();
-        $payload['password'] = Hash::make($payload['password']);
-        $user = User::create($payload);
+        $user = User::create($request->only(['name', 'email', 'password']));
         return AccessTokenService::getAccessToken($user);
     }
 
@@ -50,7 +40,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();
         return response()->json(['message' => 'Successfully logged out', 'status' => 200]);
@@ -59,7 +49,7 @@ class AuthController extends Controller
     /**
      * @return JsonResponse|void
      */
-    public function checkToken(Request $request)
+    public function checkToken(Request $request): JsonResponse
     {
         return $request->user() ? response()->json(['user' => $request->user(), 'status' => 200]) : abort(401);
     }

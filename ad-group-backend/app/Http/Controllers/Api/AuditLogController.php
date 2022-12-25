@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\IpAddressResource;
 use App\Models\AuditLog;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AuditLogController extends Controller
 {
@@ -14,7 +14,7 @@ class AuditLogController extends Controller
      */
     public function index(): JsonResponse
     {
-        $auditLogs = AuditLog::query()->where('user_id',auth()->id())->latest()->get();
+        $auditLogs = AuditLog::query()->latest()->get();
         return response()->json(IpAddressResource::collection($auditLogs), 200);
     }
 }

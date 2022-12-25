@@ -22,6 +22,12 @@
           <h6 class="text-muted">New Member ?</h6>
           <router-link to="/register" class="text-primary ms-2"><h6>Register</h6></router-link>
         </div>
+        <div class="mt-4">
+          <h5>Credentials</h5>
+          <hr>
+          <p @click="setValue" class="text-muted"><b>Email :</b> admin@gmail.com</p>
+          <p @click="setValue" class="text-muted"><b>Password :</b> 12345678</p>
+        </div>
       </div>
     </div>
   </div>
@@ -53,14 +59,17 @@ export default {
           this.$store.commit("STORE_USER", data.user);
           this.toastMessage('Login Successfully');
           this.$router.push({name: "Dashboard"});
-        }
-        else {
+        } else {
           this.toastMessage(data.message, 'error');
         }
       }).catch((errors) => {
         this.toastMessage(errors.response.data.message, 'error');
       });
     },
+    setValue() {
+      this.loginInfo.email = 'admin@gmail.com'
+      this.loginInfo.password = '12345678'
+    }
   }
 };
 </script>

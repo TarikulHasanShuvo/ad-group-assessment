@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\AuditLog;
 use App\Models\IpAddress;
+use App\Services\AuditLogsService;
 
 class IpAddressObserver
 {
@@ -15,7 +16,7 @@ class IpAddressObserver
      */
     public function created(IpAddress $ipAddress)
     {
-        self::createAuditLog($ipAddress, 'created');
+        AuditLogsService::createAuditLog($ipAddress, 'created');
     }
 
     /**
@@ -26,24 +27,7 @@ class IpAddressObserver
      */
     public function updating(IpAddress $ipAddress)
     {
-        self::createAuditLog($ipAddress, 'update');
+        AuditLogsService::createAuditLog($ipAddress, 'update');
     }
 
-    /**
-     * Handle the IpAddress "deleted" event.
-     *
-     * @param \App\Models\IpAddress $ipAddress
-     * @return void
-     */
-
-    private function createAuditLog($ipAddress, $action): void
-    {
-        AuditLog::create([
-            'user_id' => auth()->id(),
-            'ip_address_id' => $ipAddress->id,
-            'action' => $action,
-            'old_label' => $ipAddress->getOriginal('label'),
-            'new_label' => $ipAddress->label,
-        ]);
-    }
 }
