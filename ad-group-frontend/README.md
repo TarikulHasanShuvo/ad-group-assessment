@@ -6,7 +6,7 @@
 
 ### Switch to the repo folder
 
-    cd ad-group-frontend
+    cd ad-group-assessment/ad-group-frontend
 
 ### Node version
 

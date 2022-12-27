@@ -6,7 +6,7 @@
 
 ### Switch to the repo folder
 
-    cd ad-group-backend
+    cd ad-group-assessment/ad-group-backend
 
 ### Install all the dependencies using composer
 
