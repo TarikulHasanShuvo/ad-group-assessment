@@ -16,11 +16,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::query()->create([
-            'name' => "Super Admin",
+            'name' => "Admin",
             'email' => "admin@gmail.com",
-            'password' => Hash::make(12345678), // password
-            "created_at" => now(),
-            "updated_at" => now(),
+            'password' => 12345678, // password
         ]);
     }
 }

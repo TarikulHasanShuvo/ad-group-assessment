@@ -34,7 +34,8 @@ const AuthCheckService ={
             })
             next();
         });
-    }
+    },
+
 };
 
 export default AuthCheckService;

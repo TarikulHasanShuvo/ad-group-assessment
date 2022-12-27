@@ -8,6 +8,10 @@
 
     cd ad-group-frontend
 
+### Node version
+
+    v16.*.*
+
 ### Install all the dependencies using npm
 
     npm install

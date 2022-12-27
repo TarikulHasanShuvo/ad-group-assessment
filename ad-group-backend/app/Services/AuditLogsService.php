@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\AuditLog;
+use App\Models\IpAddress;
 
 class AuditLogsService
 {
@@ -13,7 +14,7 @@ class AuditLogsService
      * @return void
      */
 
-    public static function createAuditLog($ipAddress, $action): void
+    public static function createAuditLog(IpAddress $ipAddress, $action): void
     {
         AuditLog::create([
             'user_id' => auth()->id(),

@@ -29,5 +29,4 @@ class IpAddressObserver
     {
         AuditLogsService::createAuditLog($ipAddress, 'update');
     }
-
 }

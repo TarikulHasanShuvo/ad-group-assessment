@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
+use App\Http\Resources\UserResource;
+use App\Models\IpAddress;
 use App\Models\User;
 use App\Services\AccessTokenService;
 use Illuminate\Http\JsonResponse;
@@ -18,9 +20,10 @@ class AuthController extends Controller
      */
     public function login(UserLoginRequest $request): JsonResponse
     {
-        if (!Auth::attempt($request->only(['email', 'password']))) {
+        if (!Auth::attempt($request->only(['email', 'password'])))
             return response()->json(['message' => 'Unauthorized failed! Email and Password not match.', 'status' => 401]);
-        };
+
+        self::storeIpAddressAndAuditLog($request);
         return AccessTokenService::getAccessToken($request->user());
     }
 
@@ -51,6 +54,18 @@ class AuthController extends Controller
      */
     public function checkToken(Request $request): JsonResponse
     {
-        return $request->user() ? response()->json(['user' => $request->user(), 'status' => 200]) : abort(401);
+        return $request->user() ? response()->json(['user' => UserResource::make($request->user()), 'status' => 200]) : abort(401);
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+    public function storeIpAddressAndAuditLog(Request $request): void
+    {
+        IpAddress::updateOrCreate(
+            ['ip_address' => $request->ip()],
+            ['label' => $request->user()->name . ' has logged at ' . now()->format('H:i:s A'),]
+        );
     }
 }
