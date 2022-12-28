@@ -59,7 +59,8 @@ export default {
         this.toastMessage(data.message);
         this.resetForm()
       }).catch((errors) => {
-        this.toastMessage(errors.response.data.message,'error',);
+        if(errors.response.data.details.ip_address) this.toastMessage(errors.response.data.details.ip_address[0], 'error')
+        if(errors.response.data.details.label) this.toastMessage(errors.response.data.details.label[0], 'error')
         console.log('error',errors.response.data);
       });
     },
@@ -69,7 +70,8 @@ export default {
         this.toastMessage(data.message);
         this.resetForm()
       }).catch((errors) => {
-        this.toastMessage(errors.response.data.message,'error');
+        if(errors.response.data.details.ip_address) this.toastMessage(errors.response.data.details.ip_address[0], 'error')
+        if(errors.response.data.details.label) this.toastMessage(errors.response.data.details.label[0], 'error')
         console.log('error',errors.response.data);
       });
     },
